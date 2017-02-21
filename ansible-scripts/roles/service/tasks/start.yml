@@ -1,0 +1,15 @@
+---
+- name: Create logs directory
+  file: path={{logs_dir}} state=directory recurse=yes owner=mdp group=mdp
+
+- name: Create pids directory
+  file: path={{pids_dir}} state=directory recurse=yes owner=mdp group=mdp
+
+- name: Generate run script
+  template: src=mdp-web.j2 dest=/etc/systemd/system/{{package_name}}.service mode=u+x owner=mdp group=mdp
+
+- name: Reload systemd
+  command: systemctl daemon-reload
+
+- name: Start application
+  command: systemctl restart mdp_web

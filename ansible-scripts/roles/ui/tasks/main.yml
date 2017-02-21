@@ -1,0 +1,21 @@
+---
+- name: Creating destination deploy directory if doesn't exist
+  file: path={{ item.src }} state=directory owner=demo group=demo mode=0755
+  with_items:
+    - { src: "{{ deploy_dir }}" }
+
+- name: Copy files in build directory
+  copy: src={{item.src}} dest={{item.dest}} mode=0755 owner=demo group=demo
+  with_items:
+   - { src: "{{ application_source }}" , dest: "{{ deploy_dir }}" }
+
+- name: Copy the apache conf file
+  template: src="../template/httpd.conf.j2" dest="/etc/httpd/conf/httpd.conf"
+
+- name: Enable httpd_can_network_connect in selinux
+  shell: "/usr/sbin/setsebool -P httpd_can_network_connect 1"
+
+- name: Ensure demo ui directory exists
+  file: path=/var/www/demo state=directory
+- name: reload apache httpd
+  service: name=httpd state=restarted

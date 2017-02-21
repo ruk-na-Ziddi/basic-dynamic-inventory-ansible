@@ -1,0 +1,16 @@
+---
+- hosts: tag_FunctionalContext_demo
+  roles:
+    - role: commons
+      become: yes
+
+- hosts: webserver
+  roles:
+    - role: apache
+      become: yes
+
+- hosts: webservice
+  roles:
+    - role: java
+      oracle_java_set_as_default: yes
+      become: yes

@@ -1,0 +1,19 @@
+---
+- name: Create demo group
+  become: yes
+  become_user: root
+  group: name=demo state=present
+
+- name: Create demo user
+  become: yes
+  become_user: root
+  user: name=demo group=demo
+
+- name: Enabling nopassword for demo when using sudo
+  become: yes
+  become_user: root
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%demo'
+    line: '%demo ALL=(ALL) NOPASSWD: ALL'

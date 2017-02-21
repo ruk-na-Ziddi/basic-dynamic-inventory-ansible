@@ -1,0 +1,13 @@
+---
+application_source: /opt/application/deployables/demo
+package_name: "demo"
+application_dir: /opt/application
+deploy_dir: "{{application_dir}}/deployables"
+logs_dir: "{{application_dir}}/logs"
+conf_dir: "{{application_dir}}/conf"
+jar_name: demo-1.0-SNAPSHOT.jar
+log_file_name: demo.log
+std_out_log_file_name: demo.out
+std_err_log_file_name: demo.err
+error_log_file_name: demo_error.log
+pids_dir: "{{application_dir}}/pids"

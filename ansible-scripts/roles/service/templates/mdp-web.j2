@@ -1,0 +1,14 @@
+[Unit]
+Description=service
+
+[Service]
+Environment=JAR={{application_source}}/build/libs/{{jar_name}}
+Environment=CONFIG_FILE={{conf_dir}}/application.properties
+Environment="JAVA_OPTS=-XX:+CMSClassUnloadingEnabled -Xmx3g"
+User=demo
+ExecStart=/bin/sh -c '/bin/java ${JAVA_OPTS} -jar ${JAR} --spring.config.location=${CONFIG_FILE}'
+ExecStop=/bin/kill -9 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+---
+- hosts: tag_Name_mc_{{ env }}_mdp_webserver_pri_ln_ec2
+  roles:
+    - { 
+        role: ui,
+        become: true,
+        demo_api_url: "http://{{hostvars['webservice'].ec2_private_ip_address}}:8080/api",
+        become_user: demo
+     }

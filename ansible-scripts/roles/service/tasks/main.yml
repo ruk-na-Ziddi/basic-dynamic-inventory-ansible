@@ -1,0 +1,10 @@
+---
+  - name: Run pre-start commands
+    include: pre-start.yml
+    become: yes
+    become_user: root
+
+  - name: Run start commands
+    include: start.yml
+    become: yes
+    become_user: root

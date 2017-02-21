@@ -1,0 +1,6 @@
+---
+- hosts: webservice
+  roles:
+    - role: service
+      become: yes
+      become_user: demo
