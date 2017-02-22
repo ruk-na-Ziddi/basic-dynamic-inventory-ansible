@@ -2,19 +2,16 @@
 - name: Create destination deploy directory if doesn't exist
   file: path={{ item.src }} state=directory owner=demo group=demo recurse=yes
   with_items:
-    - { src: "{{ application_source }}/build/libs/" }
-    - { src: "{{ application_source }}/build/resources/main/" }
+    - { src: "{{ application_source_new }}/build/libs/" }
+    - { src: "{{ application_source_new }}/build/resources/main/" }
 
 - name: Copy Jar to deploy directory
   copy: src={{ item.src }} dest={{ item.dest }}
   with_items:
-    - { src: "{{ application_source }}/build/libs/{{jar_name}}", dest: "{{ application_source }}/build/libs/{{jar_name}}" }
+    - { src: "{{ application_source }}/build/libs/{{jar_name}}", dest: "{{ application_source_new }}/build/libs/{{jar_name}}" }
 
 - name: Create conf directory
   file: path={{conf_dir}} state=directory recurse=yes owner=demo group=demo
 
 - name: Copy service application properties file to remote server
-  template: src="{{ application_source }}/build/resources/main/application.properties.j2" dest="{{ conf_dir }}/application.properties"
-
-- name: Copy service logback file
-  template: src="{{ application_source }}/build/resources/main/logback.xml.j2" dest="{{ conf_dir }}/logback.xml"
+  template: src="{{ application_source }}/build/resources/main/application.properties" dest="{{ conf_dir }}/application.properties"

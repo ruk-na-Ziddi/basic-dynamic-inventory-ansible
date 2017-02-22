@@ -1,0 +1,9 @@
+---
+- name: Download rpm package
+  get_url:
+    url:     http://download.oracle.com/otn-pub/java/jdk/8u74-b02/{{package_name}}.rpm
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest:    "{{ rpm_destination }}/{{ package_name }}.rpm"
+
+- name: Install rpm
+  yum: name="{{ rpm_destination }}/{{ package_name }}.rpm" state=present

@@ -1,0 +1,6 @@
+---
+- name: Check if installed
+  script: ../files/check_java_version.sh {{jdk_version}}
+  register: java_installed
+
+- include: install.yml

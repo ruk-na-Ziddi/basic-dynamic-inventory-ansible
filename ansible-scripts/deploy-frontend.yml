@@ -1,9 +1,21 @@
 ---
-- hosts: tag_Name_mc_{{ env }}_mdp_webserver_pri_ln_ec2
+- hosts: localhost
+  tasks:
+    - action:
+        module: ec2_elb_facts
+        names:
+          - service-elb
+        region: us-east-1
+      register: elb_facts
+    - action:
+        module: debug
+        msg: "public url for service is:  {{ elb_facts.elbs.0.dns_name }}"
+
+- hosts: tag_Name_webserver
+  become: true
   roles:
     - { 
         role: ui,
-        become: true,
-        demo_api_url: "http://{{hostvars['webservice'].ec2_private_ip_address}}:8080/api",
+        demo_api_url: "http://{{ hostvars.localhost.elb_facts.elbs.0.dns_name }}:8080/api",
         become_user: demo
      }

@@ -1,5 +1,5 @@
 ---
-- hosts: webservice
+- hosts: tag_Purpose_webservice
   roles:
     - role: service
       become: yes

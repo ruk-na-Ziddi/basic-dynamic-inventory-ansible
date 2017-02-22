@@ -4,12 +4,12 @@
     - role: commons
       become: yes
 
-- hosts: webserver
+- hosts: tag_Name_webserver
   roles:
     - role: apache
       become: yes
 
-- hosts: webservice
+- hosts: tag_Purpose_webservice
   roles:
     - role: java
       oracle_java_set_as_default: yes

@@ -1,4 +1,4 @@
 ---
 deploy_dir:  /var/www/demo
-application_source: #provide correct path here
+application_source: /Users/AnkurKS/my-workspace/demo-ui/build/
 
